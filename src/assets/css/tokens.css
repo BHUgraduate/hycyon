@@ -1,0 +1,81 @@
+/* Hycyon design tokens — the single source of truth for the brand's look.
+   Reuse this file as-is on any future Hycyon site; components only reference var(--…).
+   Breakpoints (CSS cannot use variables in media queries, so they are fixed here):
+     sm 480 · md 768 · lg 1024 · xl 1280 · 2xl 1600                              */
+
+@font-face{font-family:"Inter";src:url(/assets/fonts/Inter.woff2) format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Fraunces";src:url(/assets/fonts/Fraunces.woff2) format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+
+:root{
+  color-scheme:light;
+
+  /* Colour — light: warm paper, ink, one signal colour */
+  --paper:#f5f3ee;
+  --paper-2:#ece9e1;
+  --surface:#fbfaf7;
+  --ink:#10141a;
+  --ink-2:#444b57;
+  --ink-3:#5f6672;
+  --line:#dcd8cd;
+  --line-strong:#bdb8aa;
+  --signal:#00695f;          /* brand accent: text & fills on light */
+  --signal-ink:#ffffff;      /* text on --signal */
+  --signal-soft:#d9efeb;
+  --signal-glow:#00a79a;     /* decorative only */
+  --amber:#8a5200;
+  --amber-soft:#f6e6c8;
+  --hero-wash:radial-gradient(60rem 36rem at 78% 10%,rgb(0 167 154/.10),transparent 60%);
+  --grid-dot:rgb(16 20 26/.10);
+
+  /* Type */
+  --font-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --step--1:clamp(.8125rem,.79rem + .1vw,.875rem);
+  --step-0:clamp(1rem,.97rem + .15vw,1.0625rem);
+  --step-1:clamp(1.15rem,1.08rem + .35vw,1.3rem);
+  --step-2:clamp(1.4rem,1.2rem + 1vw,1.9rem);
+  --step-3:clamp(1.8rem,1.4rem + 2vw,2.9rem);
+  --step-4:clamp(2.4rem,1.6rem + 4vw,4.6rem);
+  --step-5:clamp(2.8rem,1.5rem + 6.2vw,6rem);
+
+  /* Space (4px base) */
+  --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-5:1.5rem;
+  --space-6:2rem;--space-7:3rem;--space-8:4.5rem;--space-9:7rem;--space-10:10rem;
+  --gutter:clamp(1rem,4vw,2.5rem);
+  --measure:62ch;
+  --page:75rem;
+
+  /* Shape */
+  --radius-1:6px;--radius-2:12px;--radius-pill:999px;
+  --border:1px solid var(--line);
+  --border-strong:1px solid var(--line-strong);
+  --shadow-1:0 1px 2px rgb(16 20 26/.06);
+  --shadow-2:0 10px 30px -12px rgb(16 20 26/.22);
+
+  /* Motion */
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --dur-1:.15s;--dur-2:.3s;--dur-3:.7s;
+}
+
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0b0e12;
+  --paper-2:#11161c;
+  --surface:#10151b;
+  --ink:#eef1f4;
+  --ink-2:#b4bcc7;
+  --ink-3:#8c95a2;
+  --line:#222a34;
+  --line-strong:#38424f;
+  --signal:#4fd6c8;
+  --signal-ink:#04110f;
+  --signal-soft:#0f2a28;
+  --signal-glow:#4fd6c8;
+  --amber:#f0b45a;
+  --amber-soft:#2b2110;
+  --hero-wash:radial-gradient(56rem 34rem at 76% 8%,rgb(79 214 200/.13),transparent 62%),radial-gradient(40rem 24rem at 6% 92%,rgb(240 180 90/.05),transparent 70%);
+  --grid-dot:rgb(238 241 244/.09);
+  --shadow-1:0 1px 2px rgb(0 0 0/.5);
+  --shadow-2:0 18px 44px -16px rgb(0 0 0/.7);
+}
