@@ -18,6 +18,7 @@ export const privacy = () =>
     title: 'Privacy — Hycyon',
     description: 'What hycyon.com does and does not collect.',
     path: '/privacy/',
+    depth: 1,
     body: html`<div class="wrap"><article class="prose">
       <h1>Privacy</h1>
       <p>Last updated ${site.updated}.</p>
@@ -39,6 +40,7 @@ export const notFound = () =>
     description: 'This page does not exist on hycyon.com. Head back to the Hycyon home page.',
     path: '/404.html',
     noindex: true,
+    depth: null,
     body: html`<div class="wrap"><article class="prose">
       <h1>That page isn't here.</h1>
       <p>It may have moved, or the link may be wrong.</p>

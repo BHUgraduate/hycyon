@@ -1,6 +1,6 @@
 // QA for the built site (run `npm run build` first). Exits non-zero on any failure.
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { products, statusLabels } from '../src/data/products.mjs';
 import { services } from '../src/data/services.mjs';
@@ -51,12 +51,13 @@ for (const f of pages) {
     const [path, hash] = href.split('#');
     if (!path && hash && !own.has(hash)) fail(`${f}: dead anchor #${hash}`);
     if (path) {
-      const target = path.endsWith('/') ? join(dist, path, 'index.html') : join(dist, path);
+      const abs = path.startsWith('/') ? join(dist, path) : resolve(dirname(join(dist, f)), path);
+      const target = path.endsWith('/') ? join(abs, 'index.html') : abs;
       if (!existsSync(target)) fail(`${f}: dead link ${href}`);
       else if (hash && !ids(readFileSync(target, 'utf8')).has(hash)) fail(`${f}: dead anchor ${href}`);
     }
   }
-  for (const m of h.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/g)) if (!existsSync(join(dist, m[1]))) fail(`${f}: missing asset ${m[1]}`);
+  if (f !== '404.html') for (const m of h.matchAll(/(?:src|href)="(\/[^"/][^"]*)"/g)) fail(`${f}: root-absolute URL ${m[1]} breaks sub-path hosting`);
 }
 for (const f of ['robots.txt', 'sitemap.xml', 'manifest.webmanifest', 'CNAME', 'favicon.ico', 'assets/img/og.png']) if (!existsSync(join(dist, f))) fail(`missing ${f}`);
 

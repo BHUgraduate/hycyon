@@ -15,12 +15,12 @@ const themeInit = `try{var t=localStorage.getItem('hycyon-theme');if(!t)t=matchM
 
 const chevron = html`<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-const header = () => html`
+const header = (u) => html`
 <header class="site-header">
   <div class="wrap bar">
-    <a class="brand" href="/" aria-label="Hycyon — home">${markSvg()}<span>Hycyon</span></a>
+    <a class="brand" href="${u('/')}" aria-label="Hycyon — home">${markSvg()}<span>Hycyon</span></a>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      ${nav.map((n) => html`<a href="${n.href}">${n.label}</a>`)}
+      ${nav.map((n) => html`<a href="${u(n.href)}">${n.label}</a>`)}
       <div class="eco">
         <button class="nav-trigger" type="button" aria-expanded="false" aria-controls="eco-panel">Ecosystem ${chevron}</button>
         <div class="eco-panel" id="eco-panel" hidden>
@@ -43,17 +43,17 @@ const header = () => html`
   </div>
 </header>`;
 
-const footer = () => html`
+const footer = (u) => html`
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="brand" href="/">${markSvg()}<span>Hycyon</span></a>
+        <a class="brand" href="${u('/')}">${markSvg()}<span>Hycyon</span></a>
         <p>${site.tagline}</p>
       </div>
       <div><h2>Company</h2><ul>
-        <li><a href="/#about">About</a></li>
-        <li><a href="/#lab">Lab</a></li>
+        <li><a href="${u('/#about')}">About</a></li>
+        <li><a href="${u('/#lab')}">Lab</a></li>
         <li><a href="${links.portfolio}">Portfolio</a></li>
       </ul></div>
       <div><h2>Products</h2><ul>
@@ -70,13 +70,21 @@ const footer = () => html`
     </div>
     <div class="legal">
       <span>© ${new Date().getFullYear()} Hycyon · ${site.location}</span>
-      <span><a href="/privacy/">Privacy</a></span>
+      <span><a href="${u('/privacy/')}">Privacy</a></span>
     </div>
   </div>
 </footer>`;
 
 /** Full HTML document. `jsonLd` is optional structured data for the page. */
-export const page = ({ title, description, path, body, jsonLd, noindex = false }) => html`<!doctype html>
+/**
+ * Internal URLs are emitted relative to the page (`depth` = folders below the site root) so the
+ * site works at hycyon.com and at a sub-path such as bhugraduate.github.io/hycyon/.
+ * `depth: null` (404.html, served from any path) uses root-absolute URLs.
+ */
+export const page = ({ title, description, path, body, jsonLd, noindex = false, depth = 0 }) => {
+  const base = depth === null ? '/' : '../'.repeat(depth) || './';
+  const u = (p) => base + p.replace(/^\//, '');
+  return html`<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -100,21 +108,22 @@ ${noindex ? html`<meta name="robots" content="noindex">` : ''}
 <meta name="twitter:title" content="${title}">
 <meta name="twitter:description" content="${description}">
 <meta name="twitter:image" content="${site.url}/assets/img/og.png">
-<link rel="icon" href="/favicon.ico" sizes="32x32">
-<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link rel="manifest" href="/manifest.webmanifest">
-<link rel="preload" href="/assets/fonts/Fraunces.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/Inter.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="${u('/favicon.ico')}" sizes="32x32">
+<link rel="icon" href="${u('/assets/img/favicon.svg')}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="${u('/assets/img/apple-touch-icon.png')}">
+<link rel="manifest" href="${u('/manifest.webmanifest')}">
+<link rel="preload" href="${u('/assets/fonts/Fraunces.woff2')}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${u('/assets/fonts/Inter.woff2')}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="${u('/assets/site.css')}">
 <script>${raw(themeInit)}</script>
 ${jsonLd ? html`<script type="application/ld+json">${raw(JSON.stringify(jsonLd))}</script>` : ''}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-${header()}
+${header(u)}
 <main id="main">${body}</main>
-${footer()}
-<script src="/assets/main.js" defer></script>
+${footer(u)}
+<script src="${u('/assets/main.js')}" defer></script>
 </body>
-</html>`;
+</html>`
+};
