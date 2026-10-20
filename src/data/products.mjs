@@ -28,21 +28,41 @@ export const products = [
   {
     name: 'BrainSpark',
     slug: 'brainspark',
-    category: 'Exam preparation',
+    category: 'Competitive exam preparation',
     status: 'live',
-    statusNote: 'Version 1.0',
+    statusNote: 'Version 1.0 · Questions are AI-generated: check answers against your study material',
     description:
-      'An AI-assisted exam preparation platform. Build multi-topic mock tests, review every answer, and ask an AI tutor to explain what you got wrong.',
+      'Mock tests built around your exam. Choose the exam, the topics and how many questions on each, and BrainSpark generates the paper, explains every answer and lets you ask a tutor about what you got wrong.',
     website: null,
     application: links.brainSpark,
     features: [
-      'Mock exams generated from your topics, difficulty and time limit',
-      'AI tutor and doubt solver on every question',
-      'Offline practice and daily reminders',
-      'English and Hindi interface',
+      '24 named exam targets, from SSC CGL and UPSC CSE to JEE, NEET and Bank PO',
+      'Your own topic mix: set the questions per topic, up to 150 in a test',
+      'Diagrams for geometry, physics, chemistry and reasoning questions',
+      'English and Hindi, offline practice sets and per-topic results',
     ],
     platforms: ['Web'],
     schemaCategory: 'EducationalApplication',
+  },
+  {
+    name: 'VaakBoard',
+    slug: 'vaakboard',
+    category: 'Language technology',
+    status: 'coming',
+    statusNote: 'iOS keyboard coming soon · the transliteration engine and a web demo run today',
+    description:
+      'A precision input system for Sanskrit and Devanāgarī, built around how the language is actually written — not a layout with letters swapped.',
+    website: 'https://portfolio.hycyon.com/#vaakboard',
+    application: 'https://portfolio.hycyon.com/sanskrit-keyboard.html',
+    applicationLabel: 'Try the web demo',
+    features: [
+      'Latin and IAST to Devanāgarī, and back, with conjuncts, matras, anusvāra and visarga',
+      'Deterministic rules: the same input always gives the same output',
+      'Tested engine, shared by the web demo',
+      'Native iOS keyboard in preparation',
+    ],
+    platforms: ['Web demo', 'iOS (coming soon)'],
+    schemaCategory: 'UtilitiesApplication',
   },
 ];
 
@@ -51,5 +71,7 @@ export const statusLabels = {
   beta: 'Beta',
   development: 'In development',
   experiment: 'Experiment',
-  later: 'Coming later',
+  coming: 'Coming soon',
+  client: 'Client project',
+  later: 'Future',
 };

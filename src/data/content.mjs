@@ -47,12 +47,36 @@ export const labAreas = [
 /** @type {import('./types.mjs').LabEntry[]} */
 export const labEntries = [
   {
-    name: 'VaakBoard',
-    kind: 'Product',
+    name: 'Sanskrit input engine',
+    kind: 'Prototype',
     description:
-      'A native iOS keyboard for Sanskrit: IAST transliteration, phonetic input mapped to Devanāgarī, and an offline lexicon. Written in Swift around a custom trie engine. Live on the App Store.',
-    href: 'https://portfolio.hycyon.com/',
-    hrefLabel: 'See how it was built',
+      'The language engine behind VaakBoard: Latin and IAST to Devanāgarī and back, covered by an automated test suite and running in a web demo. Language detection, suggestions and correction are not built yet — the roadmap says so.',
+    href: 'https://portfolio.hycyon.com/sanskrit-keyboard.html',
+    hrefLabel: 'Try the demo',
+  },
+];
+
+/** Client work. Describe the problem and what was built; add outcomes only when they are real. */
+export const work = [
+  {
+    name: "iron's irony",
+    status: 'client',
+    sector: 'Architectural & decorative ironwork',
+    problem:
+      'A fabricator whose product is custom and site-specific had no way for a homeowner or architect to start a conversation without already knowing what to ask for.',
+    approach:
+      'A site organised around the five stages of the work — measure, design, fabricate, finish, install — and a Start a Project flow that accepts a photo, a sketch or a rough measurement instead of a finished brief.',
+    built: [
+      'Next.js and TypeScript site with its own visual identity, separate from Hycyon',
+      'Server-validated enquiry flow with spam and rate protection, and WhatsApp, phone and email fallbacks',
+      'Rule-based project assistant that answers only from the site and never quotes prices',
+      'A feedback page where past customers share how it went; nothing is published until the owner confirms it and the person agrees',
+      'Structure ready for real project photography — none of it invented',
+    ],
+    next: 'Real installations, photographs and customer words. Until they exist, the site shows labelled representative drawings and an empty feedback wall.',
+    href: 'https://ironsirony.hycyon.com/',
+    hrefLabel: "Visit iron's irony",
+    caseStudy: 'https://portfolio.hycyon.com/case-studies/irons-irony/',
   },
 ];
 

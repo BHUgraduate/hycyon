@@ -117,7 +117,8 @@
 .status::before{content:"";width:.45rem;height:.45rem;border-radius:50%;background:currentColor}
 .status.live{color:var(--signal);border-color:var(--signal);background:var(--signal-soft)}
 .status.beta,.status.development{color:var(--amber);border-color:var(--amber);background:var(--amber-soft)}
-.status.experiment,.status.later{border-style:dashed}
+.status.client{color:var(--ink);border-color:var(--ink-2)}
+.status.coming,.status.experiment,.status.later{border-style:dashed}
 
 /* ---------- Services ---------- */
 .service-list{border-top:var(--border-strong)}
@@ -226,3 +227,11 @@
   .pillars{grid-template-columns:repeat(3,1fr)}
 }
 @media (min-width:1600px){:root{--page:84rem}}
+
+.case{padding:var(--space-6);border:var(--border-strong);border-radius:var(--radius-2);background:var(--surface);display:grid;gap:var(--space-5)}
+.case-head h3{font:500 var(--step-3)/1.05 var(--font-display);letter-spacing:-.02em;margin-top:var(--space-3)}
+.case-body{display:grid;gap:var(--space-5);margin:0}
+.case-body div{display:grid;gap:var(--space-2)}
+.case-body dt{font:600 .7rem/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--signal)}
+.case-body dd{margin:0;color:var(--ink-2);max-width:var(--measure)}
+@media (min-width:768px){.case-body div{grid-template-columns:11rem 1fr;gap:var(--space-5)}}

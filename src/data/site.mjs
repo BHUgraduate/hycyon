@@ -16,7 +16,7 @@ export const site = {
 // Each site in the ecosystem has exactly one job.
 export const links = {
   catalogue: 'https://catalogue.hycyon.com/',
-  startProject: 'https://catalogue.hycyon.com/#quote-section',
+  startProject: 'https://catalogue.hycyon.com/#quote',
   portfolio: 'https://portfolio.hycyon.com/',
   ebookProSite: 'https://ebookpro.hycyon.com/',
   ebookProApp: 'https://ebookpro.web.app/',
@@ -41,6 +41,7 @@ export const founder = {
 export const nav = [
   { label: 'Products', href: '/#products' },
   { label: 'Services', href: '/#services' },
+  { label: 'Work', href: '/#work' },
   { label: 'Lab', href: '/#lab' },
   { label: 'About', href: '/#about' },
 ];
@@ -51,6 +52,7 @@ export const ecosystemMenu = [
     items: [
       { label: 'eBook Pro', href: links.ebookProSite },
       { label: 'BrainSpark', href: links.brainSpark },
+      { label: 'VaakBoard', href: 'https://portfolio.hycyon.com/#vaakboard' },
     ],
   },
   { group: 'Services', items: [{ label: 'Service Catalogue', href: links.catalogue }] },

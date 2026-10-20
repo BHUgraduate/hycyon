@@ -10,7 +10,7 @@ export const home = () =>
     description: site.description,
     path: '/',
     jsonLd: homeJsonLd(),
-    body: html`${s.hero(mark)}${s.directions()}${s.productsSection()}${s.servicesSection()}${s.whySection()}${s.engineeringSection()}${s.labSection()}${s.aboutSection()}${s.finalCta()}`,
+    body: html`${s.hero(mark)}${s.directions()}${s.productsSection()}${s.servicesSection()}${s.workSection()}${s.whySection()}${s.engineeringSection()}${s.labSection()}${s.aboutSection()}${s.finalCta()}`,
   });
 
 export const privacy = () =>

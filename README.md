@@ -15,7 +15,7 @@ Every site has exactly one purpose. This one never duplicates the others.
 | [ebookpro.web.app](https://ebookpro.web.app/) | eBook Pro application |
 | [brainsparkos.web.app](https://brainsparkos.web.app/) | BrainSpark application |
 
-"Start a Project" is the single business CTA. It goes to the catalogue's quote section (`catalogue.hycyon.com/#quote-section`).
+"Start a Project" is the single business CTA. It goes to the catalogue's quote section (`catalogue.hycyon.com/#quote`).
 
 ## Architecture
 
