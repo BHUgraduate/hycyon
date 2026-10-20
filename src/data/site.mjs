@@ -16,7 +16,7 @@ export const site = {
 // Each site in the ecosystem has exactly one job.
 export const links = {
   catalogue: 'https://catalogue.hycyon.com/',
-  startProject: 'https://catalogue.hycyon.com/#quote-section',
+  startProject: 'https://catalogue.hycyon.com/#quote',
   portfolio: 'https://portfolio.hycyon.com/',
   ebookProSite: 'https://ebookpro.hycyon.com/',
   ebookProApp: 'https://ebookpro.web.app/',
