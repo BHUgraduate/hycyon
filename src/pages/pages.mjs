@@ -27,6 +27,8 @@ export const privacy = () =>
       <p>Your browser may store one preference in local storage — whether you chose the light or dark theme. It never leaves your device.</p>
       <h2>Contacting us</h2>
       <p>If you email <a href="mailto:${site.email}">${site.email}</a>, we use your message only to reply to it. The project request form lives on the <a href="${links.catalogue}">Hycyon catalogue</a>.</p>
+      <h2>Forms on Hycyon's other sites</h2>
+      <p>The quote form on the <a href="${links.catalogue}">catalogue</a> and the contact form on the <a href="${links.portfolio}">portfolio</a> send what you type to Hycyon over HTTPS, through a small form service hosted on Netlify that passes it to a private Hycyon channel on Discord. We use it only to reply to you, and we do not sell or share it. If sending fails, your email app opens with the message written out instead.</p>
       <h2>Our products</h2>
       <p>Each Hycyon product has its own privacy policy. eBook Pro's is at <a href="${links.ebookProSite}privacy/">ebookpro.hycyon.com/privacy</a>.</p>
       <h2>Questions</h2>

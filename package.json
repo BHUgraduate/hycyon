@@ -10,6 +10,6 @@
     "check": "node scripts/check.mjs",
     "serve": "node scripts/serve.mjs",
     "assets": "node scripts/make-assets.mjs",
-    "test": "npm run build && npm run check"
+    "test": "npm run build && npm run check && npm --prefix relay test"
   }
 }

@@ -1,0 +1,10 @@
+# Hycyon form relay. Deployed as its own Netlify site from the `relay` folder (Base directory = relay).
+[build]
+  command = "node scripts/stamp.mjs"
+  publish = "public"
+  functions = "netlify/functions"
+  # Skip the build when nothing inside this folder changed, so unrelated pushes to the repo do not redeploy it.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- ."
+
+[build.environment]
+  NODE_VERSION = "20"

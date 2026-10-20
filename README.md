@@ -17,6 +17,9 @@ Every site has exactly one purpose. This one never duplicates the others.
 
 "Start a Project" is the single business CTA. It goes to the catalogue's quote section (`catalogue.hycyon.com/#quote`).
 
+## Form relay
+`relay/` is a separate small service (deployed to Netlify with Base directory `relay`) that receives the catalogue quote form and the portfolio contact form and forwards them to Discord. The sites are static, so they cannot hold a webhook URL; the relay can. See `relay/README.md`.
+
 ## Architecture
 
 Zero runtime dependencies. A small Node (≥ 20) build turns data and template functions into static HTML; ~3 KB of vanilla JS handles theme, menus, reveals and the diagram.

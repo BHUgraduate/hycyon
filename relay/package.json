@@ -1,0 +1,12 @@
+{
+  "name": "hycyon-forms-relay",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Receives form submissions from Hycyon's own websites and forwards them to Discord.",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "stamp": "node scripts/stamp.mjs",
+    "test": "node --test test/relay.test.mjs"
+  }
+}
