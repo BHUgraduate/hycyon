@@ -75,6 +75,7 @@ export const work = [
     next: 'Real installations, photographs and customer words. Until the owner supplies them, the site shows labelled representative drawings.',
     href: 'https://ironsirony.hycyon.com/',
     hrefLabel: "Visit iron's irony",
+    caseStudy: 'https://portfolio.hycyon.com/case-studies/irons-irony/',
   },
 ];
 

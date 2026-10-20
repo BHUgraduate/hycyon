@@ -125,7 +125,7 @@ export const workSection = () => html`
           <div><dt>What was built</dt><dd><ul class="features">${w.built.map((b) => html`<li>${b}</li>`)}</ul></dd></div>
           <div><dt>What comes next</dt><dd>${w.next}</dd></div>
         </dl>
-        <a class="link-arrow" href="${w.href}">${w.hrefLabel}</a>
+        <div class="founder-links"><a class="link-arrow" href="${w.caseStudy}">Read the case study</a><a class="link-arrow" href="${w.href}">${w.hrefLabel}</a></div>
       </article>`,
     )}
   </div>
