@@ -9,7 +9,7 @@ export const site = {
     'Hycyon is a technology and product studio. We build software for clients, create our own products like eBook Pro and BrainSpark, and explore what technology can become.',
   email: 'hycyon.hq@gmail.com',
   location: 'Varanasi, Uttar Pradesh, India',
-  updated: '2026-10-17',
+  updated: '2026-10-21',
   themeColor: { light: '#f5f3ee', dark: '#0b0e12' },
 };
 
