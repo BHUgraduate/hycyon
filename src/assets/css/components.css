@@ -74,7 +74,6 @@
 .eco-node.later text{fill:var(--ink-3)}
 .eco-node a{cursor:pointer}
 .eco-node:hover rect,.eco-node a:focus-visible rect{stroke:var(--signal);fill:var(--signal-soft)}
-.eco-node a:focus-visible rect{stroke-width:4}
 .eco-node a:focus-visible{outline:none}
 .eco-node a:focus-visible rect{stroke-width:3}
 .eco-spoke.active{stroke:var(--signal);stroke-width:2.5}

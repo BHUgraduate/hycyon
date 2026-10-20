@@ -19,7 +19,7 @@ const H = 62;
 
 const node = (n) => {
   const [x, y] = polar(n.r, n.deg);
-  return html`<g class="eco-node${n.later ? ' later' : ''}" data-node="${n.id}">
+  return html`<g class="eco-node${n.later ? ' later' : ''}" data-node="${n.id}" tabindex="-1">
     <a href="${n.href}" aria-label="${n.aria}">
       <rect x="${x - W / 2}" y="${y - H / 2}" width="${W}" height="${H}" rx="31"/>
       <text x="${x}" y="${y - 8}">${n.label}</text>
