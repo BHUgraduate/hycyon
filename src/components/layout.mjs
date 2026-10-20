@@ -53,6 +53,7 @@ const footer = (u) => html`
       </div>
       <div><h2>Company</h2><ul>
         <li><a href="${u('/#about')}">About</a></li>
+        <li><a href="${u('/#work')}">Work</a></li>
         <li><a href="${u('/#lab')}">Lab</a></li>
         <li><a href="${links.portfolio}">Portfolio</a></li>
       </ul></div>

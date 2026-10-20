@@ -2,7 +2,7 @@ import { html } from '../lib/html.mjs';
 import { links, founder, site } from '../data/site.mjs';
 import { products, statusLabels } from '../data/products.mjs';
 import { services } from '../data/services.mjs';
-import { pillars, capabilities, labAreas, labEntries, labKinds } from '../data/content.mjs';
+import { pillars, capabilities, labAreas, labEntries, labKinds, work } from '../data/content.mjs';
 import { ecosystem } from './ecosystem.mjs';
 
 const status = (s) => html`<span class="status ${s}">${statusLabels[s]}</span>`;
@@ -59,7 +59,7 @@ const productCard = (p) => html`
   <ul class="features">${p.features.map((f) => html`<li>${f}</li>`)}</ul>
   <div class="actions">
     ${p.website
-      ? html`<a class="btn btn-primary btn-sm" href="${p.website}">Explore ${p.name}</a><a class="link-arrow" href="${p.application}">Open the app</a>`
+      ? html`<a class="btn btn-primary btn-sm" href="${p.website}">Explore ${p.name}</a><a class="link-arrow" href="${p.application}">${p.applicationLabel ?? 'Open the app'}</a>`
       : html`<a class="btn btn-primary btn-sm" href="${p.application}">Explore ${p.name}</a>`}
   </div>
   <p class="note">${p.statusNote}</p>
@@ -102,6 +102,32 @@ export const servicesSection = () => html`
       </div>
       <a class="btn btn-primary" href="${links.catalogue}">Open Catalogue</a>
     </div>
+  </div>
+</section>`;
+
+export const workSection = () => html`
+<section class="section" id="work" aria-labelledby="work-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Selected work</p>
+      <h2 id="work-title">Built for clients, with the same care.</h2>
+      <p>Each project is described by the problem it solved and what was built. Outcomes appear only when they are real.</p>
+    </div>
+    ${work.map(
+      (w) => html`<article class="case reveal" id="work-${w.name.replace(/\W+/g, '')}">
+        <div class="case-head">
+          <div class="product-top">${status(w.status)}<span class="cat">${w.sector}</span></div>
+          <h3>${w.name}</h3>
+        </div>
+        <dl class="case-body">
+          <div><dt>The problem</dt><dd>${w.problem}</dd></div>
+          <div><dt>The thinking</dt><dd>${w.approach}</dd></div>
+          <div><dt>What was built</dt><dd><ul class="features">${w.built.map((b) => html`<li>${b}</li>`)}</ul></dd></div>
+          <div><dt>What comes next</dt><dd>${w.next}</dd></div>
+        </dl>
+        <a class="link-arrow" href="${w.href}">${w.hrefLabel}</a>
+      </article>`,
+    )}
   </div>
 </section>`;
 

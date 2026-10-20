@@ -2,7 +2,7 @@
 // scripts/check.mjs validates them at build time.
 
 /**
- * @typedef {'live'|'beta'|'development'|'experiment'|'later'} Status
+ * @typedef {'live'|'beta'|'development'|'experiment'|'coming'|'client'|'later'} Status
  *
  * @typedef {Object} Product
  * @property {string} name
@@ -13,6 +13,7 @@
  * @property {string} description
  * @property {string} website         Product marketing site (null when none exists).
  * @property {string} application     The product itself.
+ * @property {string} [applicationLabel]  Overrides "Open the app" for the secondary link.
  * @property {string[]} features      Only verified features.
  * @property {string[]} platforms
  * @property {string} schemaCategory  schema.org applicationCategory.

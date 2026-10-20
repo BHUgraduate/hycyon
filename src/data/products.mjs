@@ -44,6 +44,26 @@ export const products = [
     platforms: ['Web'],
     schemaCategory: 'EducationalApplication',
   },
+  {
+    name: 'VaakBoard',
+    slug: 'vaakboard',
+    category: 'Language technology',
+    status: 'coming',
+    statusNote: 'iOS keyboard coming soon · the transliteration engine and a web demo run today',
+    description:
+      'A precision input system for Sanskrit and Devanāgarī, built around how the language is actually written — not a layout with letters swapped.',
+    website: 'https://portfolio.hycyon.com/#vaakboard',
+    application: 'https://portfolio.hycyon.com/sanskrit-keyboard.html',
+    applicationLabel: 'Try the web demo',
+    features: [
+      'Latin and IAST to Devanāgarī, and back, with conjuncts, matras, anusvāra and visarga',
+      'Deterministic rules: the same input always gives the same output',
+      'Tested engine, shared by the web demo',
+      'Native iOS keyboard in preparation',
+    ],
+    platforms: ['Web demo', 'iOS (coming soon)'],
+    schemaCategory: 'UtilitiesApplication',
+  },
 ];
 
 export const statusLabels = {
@@ -51,5 +71,7 @@ export const statusLabels = {
   beta: 'Beta',
   development: 'In development',
   experiment: 'Experiment',
-  later: 'Coming later',
+  coming: 'Coming soon',
+  client: 'Client project',
+  later: 'Future',
 };
