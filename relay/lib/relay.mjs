@@ -126,6 +126,10 @@ export function webhookBody(url, source, data, submittedAt) {
 
 /* ------------------------------------------------------------------ plumbing */
 
+/** Makes an attacker-controlled string safe to put in a log line: one line, no control characters, shortened. */
+export const loggable = (v) => String(v ?? "none").replace(/[\u0000-\u001F\u007F]/g, " ").slice(0, 100);
+const log = (msg) => console.warn(`[relay] ${msg}`);
+
 export function createLimiter(windowMs, max) {
   const hits = new Map();
   return (ip) => {
@@ -155,35 +159,68 @@ export function createRelay({ env = process.env, fetchImpl = fetch, limiter = cr
     const reply = (body, status = 200) =>
       new Response(status === 204 ? null : JSON.stringify(body), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store", ...cors } });
 
-    if (request.method === "OPTIONS") return allowed ? reply(null, 204) : reply({ ok: false, code: "forbidden" }, 403);
+    if (request.method === "OPTIONS") {
+      if (allowed) return reply(null, 204);
+      log(`refused preflight from origin "${loggable(origin)}": not in the allowed list`);
+      return reply({ ok: false, code: "forbidden" }, 403);
+    }
     if (request.method !== "POST") return reply({ ok: false, code: "method_not_allowed" }, 405);
     // Browsers always send Origin on a cross-origin POST. Anything else (curl, scripts, other sites) is turned away.
-    if (!allowed) return reply({ ok: false, code: "forbidden" }, 403);
-    if (!request.headers.get("content-type")?.includes("application/json")) return reply({ ok: false, code: "bad_request" }, 415);
+    if (!allowed) {
+      log(`refused request from origin "${loggable(origin)}": not in the allowed list`);
+      return reply({ ok: false, code: "forbidden" }, 403);
+    }
+    if (!request.headers.get("content-type")?.includes("application/json")) {
+      log("refused request: content type is not JSON");
+      return reply({ ok: false, code: "bad_request" }, 415);
+    }
 
     const raw = await request.text();
-    if (raw.length > MAX_BODY) return reply({ ok: false, code: "too_large" }, 413);
+    if (raw.length > MAX_BODY) {
+      log("refused request: body too large");
+      return reply({ ok: false, code: "too_large" }, 413);
+    }
     let body;
     try {
       body = JSON.parse(raw);
     } catch {
+      log("refused request: body is not valid JSON");
       return reply({ ok: false, code: "bad_request" }, 400);
     }
-    if (typeof body !== "object" || body === null || Array.isArray(body)) return reply({ ok: false, code: "bad_request" }, 400);
+    if (typeof body !== "object" || body === null || Array.isArray(body)) {
+      log("refused request: body is not an object");
+      return reply({ ok: false, code: "bad_request" }, 400);
+    }
 
-    if (limiter(clientIp(request))) return reply({ ok: false, code: "rate_limited" }, 429);
+    if (limiter(clientIp(request))) {
+      log("refused request: rate limit reached for this visitor");
+      return reply({ ok: false, code: "rate_limited" }, 429);
+    }
 
     // Honeypot: invisible to people, so anything in it is a bot. Pretend it worked.
-    if (typeof body.website === "string" && body.website.length > 0) return reply({ ok: true });
+    if (typeof body.website === "string" && body.website.length > 0) {
+      log("dropped a submission: honeypot field was filled");
+      return reply({ ok: true });
+    }
 
     const source = typeof body.source === "string" && Object.hasOwn(SOURCES, body.source) ? body.source : null;
-    if (!source) return reply({ ok: false, code: "invalid", fields: { source: "Unknown form." } }, 422);
+    if (!source) {
+      log(`refused request: unknown form "${loggable(body.source)}"`);
+      return reply({ ok: false, code: "invalid", fields: { source: "Unknown form." } }, 422);
+    }
 
     const { data, errors } = validate(source, body);
-    if (Object.keys(errors).length) return reply({ ok: false, code: "invalid", fields: errors }, 422);
+    if (Object.keys(errors).length) {
+      // Field names only: never the values, which are the visitor's personal details.
+      log(`[${source}] refused: invalid fields: ${Object.keys(errors).join(", ")}`);
+      return reply({ ok: false, code: "invalid", fields: errors }, 422);
+    }
 
     const url = webhookFor(env, source);
-    if (!url) return reply({ ok: false, code: "not_configured" }, 503);
+    if (!url) {
+      console.error(`[relay:${source}] no webhook is configured for this form`);
+      return reply({ ok: false, code: "not_configured" }, 503);
+    }
 
     try {
       const res = await fetchImpl(url, {
@@ -198,6 +235,7 @@ export function createRelay({ env = process.env, fetchImpl = fetch, limiter = cr
         console.error(`[relay:${source}] webhook responded ${res.status}${detail ? `: ${detail}` : ""}`);
         return reply({ ok: false, code: "delivery_failed" }, 502);
       }
+      log(`[${source}] delivered`);
       return reply({ ok: true });
     } catch (err) {
       console.error(`[relay:${source}] webhook request failed`, err instanceof Error ? err.name : "error");

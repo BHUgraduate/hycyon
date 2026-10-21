@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createRelay, createLimiter, health, webhookBody, DEFAULT_ORIGINS } from "../lib/relay.mjs";
+import { createRelay, createLimiter, health, webhookBody, loggable, DEFAULT_ORIGINS } from "../lib/relay.mjs";
 
 const ORIGIN = "https://catalogue.hycyon.com";
 const DISCORD = "https://discord.com/api/webhooks/123456789/SECRET-TOKEN-abc";
@@ -243,4 +243,47 @@ test("webhookBody detects Discord by host or by the /api/webhooks/ path", () => 
   assert.ok(webhookBody("https://discordapp.com/api/webhooks/1/x", "portfolio", { ...d, intent: "A product" }, "t").content);
   assert.ok(webhookBody("http://localhost:9/api/webhooks/1/x", "portfolio", { ...d, intent: "A product" }, "t").content);
   assert.equal(webhookBody("https://hooks.slack.com/services/T/B/x", "portfolio", { ...d, intent: "A product" }, "t").kind, "lead");
+});
+
+/* ---------- the log tells you why (without leaking anything) ---------- */
+
+function captureLogs() {
+  const lines = [];
+  const w = console.warn, e = console.error;
+  console.warn = (...a) => lines.push(a.join(" "));
+  console.error = (...a) => lines.push(a.join(" "));
+  return { lines, restore: () => { console.warn = w; console.error = e; } };
+}
+
+test("every refusal leaves a log line saying why, and none contains personal data or the webhook URL", async () => {
+  const cap = captureLogs();
+  try {
+    const { post } = setup();
+    await post(quote, { origin: "https://evil.example" });                       // wrong origin
+    await post(quote, { origin: null });                                          // no origin
+    await post({ ...quote, email: "nope", name: "" });                            // invalid fields
+    await post({ ...quote, source: "admin" });                                    // unknown form
+    await post("{bad", { raw: true });                                            // malformed
+    await post({ ...quote, website: "x" });                                       // honeypot
+    await post(quote);                                                            // success
+  } finally { cap.restore(); }
+  const all = cap.lines.join("\n");
+  assert.match(all, /refused request from origin "https:\/\/evil\.example": not in the allowed list/);
+  assert.match(all, /origin "none"/);
+  assert.match(all, /\[catalogue\] refused: invalid fields: name, email/);
+  assert.match(all, /unknown form "admin"/);
+  assert.match(all, /not valid JSON/);
+  assert.match(all, /honeypot/);
+  assert.match(all, /\[catalogue\] delivered/);
+  for (const secret of ["ravi@example.com", "Ravi Kumar", "SECRET-TOKEN", "discord.com/api/webhooks", "booking system"]) {
+    assert.ok(!all.includes(secret), `log must not contain ${secret}`);
+  }
+});
+
+test("anything attacker-controlled is flattened to one short line before it is logged", () => {
+  const forged = "https://evil.example\n[relay] [catalogue] delivered\r\u0000ok" + "x".repeat(500);
+  const out = loggable(forged);
+  assert.ok(!/[\n\r\u0000]/.test(out), "no line breaks or control characters");
+  assert.ok(out.length <= 100, "shortened");
+  assert.equal(loggable(undefined), "none");
 });
