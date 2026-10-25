@@ -12,7 +12,7 @@ export const hero = (mark) => html`
   <div class="wrap hero-grid">
     <div class="reveal">
       <h1 id="hero-title">Technology for <em>ideas</em> worth building.</h1>
-      <p class="hero-lede">Hycyon builds software, digital products and intelligent experiences — custom work for clients, and products we make ourselves.</p>
+      <p class="hero-lede">Hycyon is a technology and product studio. We build websites, apps and AI software for clients, and products we make ourselves.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#build">Explore Hycyon</a>
         <a class="btn btn-ghost" href="${links.startProject}">Start a Project</a>
@@ -89,7 +89,7 @@ export const servicesSection = () => html`
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow">Services</p>
-      <h2 id="services-title">Built for your ideas. Built for your business.</h2>
+      <h2 id="services-title">Websites, apps and AI software for your business.</h2>
       <p>The same team that ships Hycyon's own products builds yours.</p>
     </div>
     <div class="service-list">
@@ -149,7 +149,7 @@ export const engineeringSection = () => html`
   <div class="wrap split">
     <div class="bridge reveal">
       <p class="eyebrow">Engineering</p>
-      <h2 id="eng-title">See what's under the hood.</h2>
+      <h2 id="eng-title">How we engineer: the technology under the hood.</h2>
       <p>Hycyon is built by engineers who don't stop at the interface. The engineering portfolio shows the projects, the code and the thinking behind them.</p>
       <a class="btn btn-ghost" href="${links.portfolio}">Explore the engineering portfolio</a>
     </div>

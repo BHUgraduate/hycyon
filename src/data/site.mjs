@@ -6,7 +6,7 @@ export const site = {
   tagline: 'Technology · Products · Software',
   title: 'Hycyon — Technology, Products & Software',
   description:
-    'Hycyon is a technology and product studio. We build software for clients, create our own products like eBook Pro and BrainSpark, and explore what technology can become.',
+    'Hycyon is a technology and product studio in India. We build websites, apps and AI software for clients, and our own products like eBook Pro and BrainSpark.',
   email: 'hycyon.hq@gmail.com',
   location: 'Varanasi, Uttar Pradesh, India',
   updated: '2026-10-21',
