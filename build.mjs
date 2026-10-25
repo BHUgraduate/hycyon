@@ -3,6 +3,7 @@ import { mkdirSync, writeFileSync, readFileSync, cpSync, rmSync, existsSync } fr
 import { toString } from './src/lib/html.mjs';
 import { site } from './src/data/site.mjs';
 import * as pages from './src/pages/pages.mjs';
+import { lastmods } from './scripts/lastmod.mjs';
 
 const OUT = new URL('./dist/', import.meta.url);
 const SRC = new URL('./src/', import.meta.url);
@@ -16,8 +17,14 @@ rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 
 // Pages
-write('index.html', toString(pages.home()));
-write('privacy/index.html', toString(pages.privacy()));
+// Indexable pages are recorded by canonical URL so the sitemap can date each one separately.
+const rendered = {};
+const writePage = (urlPath, file, html) => {
+  rendered[`${site.url}${urlPath}`] = html;
+  write(file, html);
+};
+writePage('/', 'index.html', toString(pages.home()));
+writePage('/privacy/', 'privacy/index.html', toString(pages.privacy()));
 write('404.html', toString(pages.notFound()));
 
 // CSS: tokens first, then base, then components.
@@ -36,10 +43,11 @@ if (existsSync(new URL('assets/img/favicon.ico', SRC))) cpSync(new URL('assets/i
 
 // Crawlers, manifest, hosting
 write('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`);
+const dates = lastmods(rendered, new URL('./sitemap-lastmod.json', import.meta.url), site.updated);
 write(
   'sitemap.xml',
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['/', '/privacy/']
-    .map((p) => `  <url><loc>${site.url}${p}</loc><lastmod>${site.updated}</lastmod></url>`)
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${Object.entries(dates)
+    .map(([loc, d]) => `  <url><loc>${loc}</loc><lastmod>${d}</lastmod></url>`)
     .join('\n')}\n</urlset>\n`,
 );
 write(
