@@ -78,6 +78,24 @@ export const work = [
     hrefLabel: "Visit iron's irony",
     caseStudy: 'https://portfolio.hycyon.com/case-studies/irons-irony/',
   },
+  {
+    name: 'AudioForensics Lab',
+    status: 'client',
+    sector: 'Digital audio evidence examination',
+    problem:
+      'A WAV recording offered as evidence has to be examined without being altered, and every step has to be repeatable and on the record.',
+    approach:
+      'Treat the file as evidence before treating it as sound: hash it, check what its header claims, do every enhancement on a derived copy, and write down everything that was done. Deterministic signal processing only, with no AI.',
+    built: [
+      'Full-file and audio-payload hashes (MD5 and SHA-256) with a verification status that every report states',
+      'A header cross-check that compares what a WAV header claims with the audio actually present',
+      'Waveform, spectrogram and magnitude spectrum, with Butterworth filtering and normalization applied to a copy, never the original',
+      'An append-only processing history and a reproducible Markdown report that makes no finding about authenticity',
+      'Python and Streamlit, with more than 500 automated tests and a manual QA checklist for the page itself',
+    ],
+    next: 'PDF reports with embedded figures, signed or timestamped reports, case storage, and more filters. It is a local, single-user tool, not built for a shared public server.',
+    caseStudy: 'https://portfolio.hycyon.com/case-studies/audioforensics-lab/',
+  },
 ];
 
 export const labKinds = [
