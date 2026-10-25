@@ -15,8 +15,8 @@ export const home = () =>
 
 export const privacy = () =>
   page({
-    title: 'Privacy — Hycyon',
-    description: 'What hycyon.com does and does not collect.',
+    title: 'Privacy Policy — Hycyon',
+    description: 'What hycyon.com collects (nothing, beyond a theme preference), how the quote and contact forms handle your details, and who to ask about them.',
     path: '/privacy/',
     depth: 1,
     body: html`<div class="wrap"><article class="prose">
