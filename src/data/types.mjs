@@ -28,7 +28,7 @@
  * @property {string} name
  * @property {'Experiment'|'Prototype'|'Research'|'Product'} kind
  * @property {string} description
- * @property {string} [href] Optional: omitted when there is no public site
- * @property {string} [hrefLabel]
+ * @property {string} href
+ * @property {string} hrefLabel
  */
 export {};
