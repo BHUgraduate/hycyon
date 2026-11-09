@@ -20,6 +20,7 @@ export const links = {
   portfolio: 'https://portfolio.hycyon.com/',
   ebookProSite: 'https://ebookpro.hycyon.com/',
   ebookProApp: 'https://ebookpro.web.app/',
+  ebookProPlay: 'https://play.google.com/store/apps/details?id=com.hycyon.ebookpro',
   brainSpark: 'https://brainsparkos.web.app/',
 };
 

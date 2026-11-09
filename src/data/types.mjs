@@ -14,6 +14,7 @@
  * @property {string} website         Product marketing site (null when none exists).
  * @property {string} application     The product itself.
  * @property {string} [applicationLabel]  Overrides "Open the app" for the secondary link.
+ * @property {{label: string, href: string}} [store]  App store listing (e.g. Google Play), when published.
  * @property {string[]} features      Only verified features.
  * @property {string[]} platforms
  * @property {string} schemaCategory  schema.org applicationCategory.

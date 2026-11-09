@@ -34,6 +34,7 @@ const apps = products
     applicationCategory: p.schemaCategory,
     operatingSystem: p.platforms.join(', '),
     description: p.description,
+    ...(p.store ? { installUrl: p.store.href } : {}),
     publisher: { '@id': org['@id'] },
   }));
 
