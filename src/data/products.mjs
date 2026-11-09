@@ -11,11 +11,12 @@ export const products = [
     slug: 'ebook-pro',
     category: 'Reading & learning',
     status: 'live',
-    statusNote: 'Web app available · Android release in preparation',
+    statusNote: 'Web app and Android app (Google Play) available',
     description:
       'A reader for people who study what they read. Open your own PDF, EPUB and text files, then highlight, annotate, translate and turn passages into notes and flashcards.',
     website: links.ebookProSite,
     application: links.ebookProApp,
+    store: { label: 'Get it on Google Play', href: links.ebookProPlay },
     features: [
       'PDF, EPUB and TXT reading with page-turn animation',
       'On-device OCR for scanned pages (English and Hindi)',

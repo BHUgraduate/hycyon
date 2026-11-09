@@ -61,6 +61,7 @@ const productCard = (p) => html`
     ${p.website
       ? html`<a class="btn btn-primary btn-sm" href="${p.website}">Explore ${p.name}</a><a class="link-arrow" href="${p.application}">${p.applicationLabel ?? 'Open the app'}</a>`
       : html`<a class="btn btn-primary btn-sm" href="${p.application}">Explore ${p.name}</a>`}
+    ${p.store ? html`<a class="link-arrow" href="${p.store.href}" rel="noopener">${p.store.label}</a>` : ''}
   </div>
   <p class="note">${p.statusNote}</p>
 </article>`;
